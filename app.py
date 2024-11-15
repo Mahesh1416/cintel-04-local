@@ -11,29 +11,38 @@ from shiny import reactive
 
 penguins_df = load_penguins()
 
-# Set the Page Options with the title 
-ui.page_opts(title="Mahesh Bashyal Penguin project", fillable=True)
+ui.page_opts(title="Mahesh Bashyal's Penguin Data", fillable=True)
 
-# Add a Shiny UI sidebar for user interaction
-with ui.sidebar():
-# Use the ui.h2() function to add a 2nd level header to the sidebar
-    ui.h2("Sidebar")
-    
- 
-ui.input_selectize("selected_attribute","Penguin's features",
-                      ["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"])
-
-# Use ui.input_numeric() to create a numeric input for the number of Plotly histogram bins
-ui.input_numeric("plotly_bin_count", "number of bins",0)
-
-# Use ui.input_slider() to create a slider input for the number of Seaborn bins
-ui.input_slider("seaborn_bin_count","Choose number of bars",0,100,20)
-
-# Use ui.input_checkbox_group() to create a checkbox group input to filter the species
-ui.input_checkbox_group("selected_species_list","Species",
-                           ["Adelie", "Gentoo", "Chinstrap"],selected=["Adelie"],inline=True)
-# Use ui.hr() to add a horizontal rule to the sidebar
-ui.hr() 
+# Sidebar for User Interaction
+with ui.sidebar(open="open"):
+        ui.h2("Sidebar")
+        ui.input_selectize(
+            "selected_attribute",
+            "Select Attributes",
+            ["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"],
+            )
+        ui.input_numeric(
+            "plotly_bin_count",
+            "Plotly Number of Bins",
+            10,
+            min=1,
+            max=20,
+            )
+        ui.input_slider(
+            "seaborn_bin_count",
+            "Seaborn Number of Bins",
+            min= 0,
+            max= 100,
+            value= 20
+            )
+        ui.input_checkbox_group(
+            "selected_species_list",
+            "Choose Species",
+            ["Adelie","Gentoo","Chinstrap"],
+            selected=["Adelie","Gentoo","Chinstrap"],
+            inline=False
+            )
+        ui.hr()
 
 # Use ui.a() to add a hyperlink to the sidebar
 ui.a("GitHub",href="https://github.com/Mahesh1416/cintel-02-data/tree/main",target= "_blank") #to add a hyperlink to the sidebar
