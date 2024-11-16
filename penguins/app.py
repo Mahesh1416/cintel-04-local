@@ -39,7 +39,7 @@ with ui.sidebar(open="open"):
             "selected_species_list",
             "Choose Species",
             ["Adelie","Gentoo","Chinstrap"],
-            selected=["Adelie","Gentoo","Chinstrap"],
+            selected=["Adelie"],
             inline=False
             )
         ui.hr()
@@ -51,14 +51,14 @@ with ui.layout_columns():
 
     # New data table Using Filtered Data    
     with ui.card():
-        "Penguins Data Table"
+        "Data table for penguins"
         @render.data_frame
         def data_table():
             return render.DataTable(filtered_data())
 
     # Display data Grid Using Filtered Data    
     with ui.card():
-        "Penguins Data Grid"
+        "Data Grid for penguins"
         @render.data_frame
         def data_grid():
             return render.DataGrid(filtered_data())
@@ -67,7 +67,7 @@ with ui.layout_columns():
     
     # Plotly Histogram    
     with ui.card():
-        ui.card_header("Plotly Histogram")
+        ui.card_header("Histogram using plotly")
         @render_plotly
         def plotlyhistogram():
             return px.histogram(
@@ -82,7 +82,7 @@ with ui.layout_columns():
             
     # Seaborn Histogram    
     with ui.card():
-        ui.card_header("Seaborn Histogram")
+        ui.card_header("Seaborn Histogram of penguin data")
        
         @render.plot
         def seabornhistogram():
@@ -120,5 +120,6 @@ def filtered_data():
     if selected_species:
         return penguins_df[penguins_df['species'].isin(selected_species)]
     return penguins_df
-       
+
+  
        
